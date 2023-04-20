@@ -28,10 +28,19 @@ public class Myynnit extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Myynnit.doGet()");
+		String hakusana = request.getParameter("hakusana");
+		System.out.println(hakusana);
 		Dao dao = new Dao();
-		ArrayList<Myynti> myynnit = dao.getAllItems();
-		System.out.println(myynnit);
-		String strJSON = new Gson().toJson(myynnit);
+		ArrayList<Myynti> myynnit;
+		String strJSON = "";
+		if (hakusana != null) {
+			if (!hakusana.equals("")) {
+				myynnit = dao.getAllItems(hakusana);
+			} else {
+				myynnit = dao.getAllItems();
+			}
+			strJSON = new Gson().toJson(myynnit);
+		}
 		response.setContentType("application/json; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		out.println(strJSON);

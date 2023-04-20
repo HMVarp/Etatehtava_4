@@ -85,4 +85,36 @@ public class Dao {
 		}
 		return myynnit;
 	}
+	public ArrayList<Myynti> getAllItems (String searchStr) {
+		ArrayList<Myynti> myynnit = new ArrayList<Myynti>();
+		sql = "SELECT * FROM asiakkaat WHERE asiakas_id LIKE ? or etunimi LIKE ? OR sukunimi LIKE ? OR puhelin LIKE ? OR sposti LIKE ?";
+		try {
+			con = yhdista();
+			stmtPrep = con.prepareStatement(sql);
+			stmtPrep.setString(1,  "%" + searchStr + "%");
+			stmtPrep.setString(2,  "%" + searchStr + "%");
+			stmtPrep.setString(3,  "%" + searchStr + "%");
+			stmtPrep.setString(4,  "%" + searchStr + "%");
+			stmtPrep.setString(5,  "%" + searchStr + "%");
+			rs = stmtPrep.executeQuery();
+			if (rs != null) {
+				while (rs.next()) {
+					Myynti myynti = new Myynti();
+					myynti.setAsiakas_id(rs.getInt(1));
+					myynti.setEtunimi(rs.getString(2));
+					myynti.setSukunimi(rs.getString(3));
+					myynti.setPuhelin(rs.getString(4));
+					myynti.setSposti(rs.getString(5));
+					myynnit.add(myynti);
+				}
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sulje();
+		}
+		return myynnit;
+		
+	}
 }
