@@ -1,0 +1,36 @@
+
+
+th.hakusana {
+	text-align: right;
+	color: white !important;
+}
+
+th.hakunappi{
+	text-align: left;
+}
+
+th, td {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  text-align: left;
+}
+
+vastaus {
+	color: #4a4a4a;
+}
+
+tr.otsikko {
+	color: #ffff80 !important;
+	background-color: green !important;	
+}
+
+tr.haku {
+	background-color: green;
+}
+
+tr:nth-child(even) {
+  background-color: rgb(180, 180, 180);
+  color: black;
+}

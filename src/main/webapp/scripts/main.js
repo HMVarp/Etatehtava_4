@@ -13,12 +13,12 @@ function haeAsiakkaat() {
 function printItems(respObjList) {
 	let htmlStr="";
 	for(let item of respObjList){//yksi kokoelmalooppeista		
-    	htmlStr+="<tr id='rivi_"+item.id+"'>";
-    	htmlStr+="<td>"+item.asiakas_id+"</td>";
-    	htmlStr+="<td>"+item.etunimi+"</td>";
-    	htmlStr+="<td>"+item.sukunimi+"</td>";
-    	htmlStr+="<td>"+item.puhelin+"</td>";
-    	htmlStr+="<td>"+item.sposti+"</td>";
+    	htmlStr+="<tr id='rivi_"+item.asiakas_id+"'>";
+    	htmlStr+="<td class='tunnus'>"+item.asiakas_id+"</td>";
+    	htmlStr+="<td class='etunimi'>"+item.etunimi+"</td>";
+    	htmlStr+="<td class='sukunimi'>"+item.sukunimi+"</td>";
+    	htmlStr+="<td class='puhelin'>"+item.puhelin+"</td>";
+    	htmlStr+="<td class='sposti'>"+item.sposti+"</td>";
     	htmlStr+="</tr>";    	
 	}	
 	document.getElementById("tbody").innerHTML = htmlStr;

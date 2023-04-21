@@ -60,7 +60,7 @@ public class Dao {
 
 	public ArrayList<Myynti> getAllItems() {
 		ArrayList<Myynti> myynnit = new ArrayList<Myynti>();
-		sql = "SELECT * FROM asiakkaat ORDER BY asiakas_id DESC"; //Suurin id tulee ensimm�isen�
+		sql = "SELECT * FROM asiakkaat ORDER BY asiakas_id ASC"; //Suurin id tulee ensimm�isen�
 		try {
 			con = yhdista();
 			if (con != null) { // jos yhteys onnistui
