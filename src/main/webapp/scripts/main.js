@@ -9,7 +9,6 @@ function haeAsiakkaat() {
 	.then (response => printItems(response))
 	.catch (errorText => console.error("Fetch failed: " + errorText));
 }
-
 function printItems(respObjList) {
 	let htmlStr="";
 	for(let item of respObjList){//yksi kokoelmalooppeista		

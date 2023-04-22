@@ -27,7 +27,8 @@
 		<tbody id="tbody" class="vastaus">
 		</tbody>
 </table>
-<span id="ilmo"></span>
+<span id="ilmo">
+</span>
 <script>
 haeAsiakkaat();
 </script>

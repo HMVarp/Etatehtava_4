@@ -31,7 +31,6 @@ public class Dao {
 		}
 		return con;
 	}
-
 	private void sulje() {		
 		if (stmtPrep != null) {
 			try {
@@ -56,8 +55,6 @@ public class Dao {
 			}
 		}
 	}
-	
-
 	public ArrayList<Myynti> getAllItems() {
 		ArrayList<Myynti> myynnit = new ArrayList<Myynti>();
 		sql = "SELECT * FROM asiakkaat ORDER BY asiakas_id ASC"; //Suurin id tulee ensimm�isen�
@@ -108,13 +105,11 @@ public class Dao {
 					myynnit.add(myynti);
 				}
 			}
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			sulje();
 		}
 		return myynnit;
-		
 	}
 }
