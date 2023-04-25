@@ -57,13 +57,13 @@ public class Dao {
 	}
 	public ArrayList<Myynti> getAllItems() {
 		ArrayList<Myynti> myynnit = new ArrayList<Myynti>();
-		sql = "SELECT * FROM asiakkaat ORDER BY asiakas_id ASC"; //Suurin id tulee ensimm�isen�
+		sql = "SELECT * FROM asiakkaat ORDER BY asiakas_id ASC";
 		try {
 			con = yhdista();
-			if (con != null) { // jos yhteys onnistui
+			if (con != null) {
 				stmtPrep = con.prepareStatement(sql);
 				rs = stmtPrep.executeQuery();
-				if (rs != null) { // jos kysely onnistui
+				if (rs != null) { 
 					while (rs.next()) {
 						Myynti myynti = new Myynti();
 						myynti.setAsiakas_id(rs.getInt(1));
@@ -111,5 +111,42 @@ public class Dao {
 			sulje();
 		}
 		return myynnit;
+	}
+	
+	public boolean addItem(Myynti myynti) {
+		boolean paluuArvo = true;
+		sql = "INSERT INTO asiakkaat(etunimi, sukunimi, puhelin, sposti)VALUES(?,?,?,?)";
+		try {
+			con = yhdista();
+			stmtPrep = con.prepareStatement(sql);
+			stmtPrep.setString(1, myynti.getEtunimi());
+			stmtPrep.setString(2, myynti.getSukunimi());
+			stmtPrep.setString(3, myynti.getPuhelin());
+			stmtPrep.setString(4, myynti.getSposti());
+			stmtPrep.executeUpdate();		
+		} catch (Exception e) {
+			paluuArvo=false;
+			e.printStackTrace();
+		} finally {
+			sulje();
+		}
+		return paluuArvo;
+	}
+	
+	public boolean removeItem(int id) {
+		boolean paluuArvo = true;
+		sql = "DELETE FROM asiakkaat WHERE asiakas_id=?";
+		try {
+			con = yhdista();
+			stmtPrep = con.prepareStatement(sql);
+			stmtPrep.setInt(1, id);
+			stmtPrep.executeUpdate();		
+		} catch (Exception e) {
+			paluuArvo=false;
+			e.printStackTrace();
+		} finally {
+			sulje();
+		}
+		return paluuArvo;
 	}
 }

@@ -7,12 +7,24 @@ th.hakunappi{
 	text-align: left;
 }
 
+a {
+	text-decoration: none;
+	font-style: strong;
+	color: white;
+	cursor: pointer;
+}
+
+.oikealle {
+	text-align: right;
+}
+
 th, td {
   padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 10px;
   padding-right: 10px;
   text-align: left;
+  font-family: "Verdana", Geneva, Tahoma, sans-serif;
 }
 
 vastaus {
@@ -25,10 +37,17 @@ tr.otsikko {
 }
 
 tr.haku {
-	background-color: green;
+	background-color: green !important;
 }
 
 tr:nth-child(even) {
   background-color: rgb(180, 180, 180);
   color: black;
+}
+
+.poista {
+	text-decoration: none;
+	font-weight: bold !important;
+	color: red;
+	cursor: pointer;
 }

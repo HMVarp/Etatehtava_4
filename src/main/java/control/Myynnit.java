@@ -3,6 +3,7 @@ package control;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -49,6 +50,18 @@ public class Myynnit extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Myynnit.doPost()");
+		String strJSONInput = request.getReader().lines().collect(Collectors.joining());
+		//System.out.println(strJSONInput); //onnistuu
+		Myynti myynti = new Gson().fromJson(strJSONInput, Myynti.class);
+		//System.out.println(myynti); //onnistuu
+		Dao dao = new Dao();
+		response.setContentType("application/json; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		if(dao.addItem(myynti)) {
+			out.println("{\"response\":1}");
+		}else {
+			out.println("{\"response\":0}");
+		}
 	}
 
 	
@@ -59,6 +72,15 @@ public class Myynnit extends HttpServlet {
 	
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Myynnit.doDelete()");
+		int id = Integer.parseInt(request.getParameter("asiakas_id"));
+		Dao dao = new Dao();
+		response.setContentType("application/json; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		if(dao.removeItem(id)) {
+			out.println("{\"response\":1}");
+		}else {
+			out.println("{\"response\":0}");
+		}
 	}
 
 }
