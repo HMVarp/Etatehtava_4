@@ -9,9 +9,14 @@ th.hakunappi{
 
 a {
 	text-decoration: none;
-	font-style: strong;
+	font-weight: bold;
 	color: white;
 	cursor: pointer;
+}
+
+a.muuta {
+	font-weight: bold;
+	color: blue;
 }
 
 .oikealle {

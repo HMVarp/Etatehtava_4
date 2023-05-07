@@ -4,12 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Lisaa uusi asiakas</title>
+<title>Muuta asiakkaan tiedot</title>
 <link rel="stylesheet" type="text/css" href="css/Tyylit.css">
 <script src="scripts/main.js"></script>
 <script src="scripts/io.js"></script>
 </head>
-<body onload="asetaFocus('etunimi')" onkeydown="tutkiKey(event, 'lisaa')">
+<body onload="asetaFocus('etunimi')" onkeydown="tutkiKey(event, 'paivita')">
 <form name="lomake">
 	<table>
 		<thead>
@@ -30,11 +30,15 @@
 				<td><input type="text" name="sukunimi" id="sukunimi" /></td>
 				<td><input type="text" name="puhelin" id="puhelin" /></td>
 				<td><input type="text" name="sposti" id="sposti" /></td>
-				<td><input type="button" value="Lisää" onclick="tutkiJaLisaa()"/></td>
+				<td><input type="button" value="Hyväksy" onclick="tutkiJaPaivita()"/></td>
 			</tr>
 		</tbody>
 	</table>
+	<input type="hidden" name="asiakas_id" id="asiakas_id">
 </form>
 <p id="ilmo"></p>
 </body>
+<script>
+haeAsiakas();
+</script>
 </html>

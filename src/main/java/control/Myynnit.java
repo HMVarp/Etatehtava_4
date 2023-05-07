@@ -30,7 +30,9 @@ public class Myynnit extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Myynnit.doGet()");
 		String hakusana = request.getParameter("hakusana");
-		System.out.println(hakusana);
+		//System.out.println(hakusana);
+		String asiakas_id = request.getParameter("asiakas_id"); //undefind?
+		System.out.println(asiakas_id); //onnistuu
 		Dao dao = new Dao();
 		ArrayList<Myynti> myynnit;
 		String strJSON = "";
@@ -40,6 +42,12 @@ public class Myynnit extends HttpServlet {
 			} else {
 				myynnit = dao.getAllItems();
 			}
+			strJSON = new Gson().toJson(myynnit);
+		} else if (asiakas_id != null) {
+			Myynti myynti = dao.getItem(Integer.parseInt(asiakas_id));
+			strJSON = new Gson().toJson(myynti);
+		} else {
+			myynnit = dao.getAllItems();
 			strJSON = new Gson().toJson(myynnit);
 		}
 		response.setContentType("application/json; charset=UTF-8");
@@ -67,20 +75,32 @@ public class Myynnit extends HttpServlet {
 	
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Myynnit.doPut()");
+		String strJSONInput = request.getReader().lines().collect(Collectors.joining());
+		//System.out.println(strJSONInput); //asiakas_id on "" ?
+		Myynti myynti = new Gson().fromJson(strJSONInput, Myynti.class);				
+		response.setContentType("application/json; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		Dao dao = new Dao();			
+		if(dao.changeItem(myynti)){ 
+			out.println("{\"response\":1}");
+		} else {
+			out.println("{\"response\":0}");  
+		}		
+			
 	}
 
 	
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Myynnit.doDelete()");
-		int id = Integer.parseInt(request.getParameter("asiakas_id"));
+		int asiakas_id = Integer.parseInt(request.getParameter("asiakas_id"));
 		Dao dao = new Dao();
 		response.setContentType("application/json; charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		if(dao.removeItem(id)) {
+		if(dao.removeItem(asiakas_id)) {
 			out.println("{\"response\":1}");
 		}else {
 			out.println("{\"response\":0}");
 		}
-	}
+	} //toimii
 
 }

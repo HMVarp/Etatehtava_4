@@ -6,9 +6,10 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="css/Tyylit.css">
 <script src="scripts/main.js"></script>
+<script src="scripts/io.js"></script>
 <title>Asiakashaku</title>
 </head>
-<body>
+<body onload="asetaFocus('hakusana')" onkeydown="tutkiKey(event, 'hae')">
 <table id="listaus">
 		<thead>
 			<tr>
@@ -24,8 +25,7 @@
 				<th class="etunimi">Etunimi</th>
 				<th class="sukunimi">Sukunimi</th>					
 				<th class="puhelin">Puhelin</th>
-				<th class="sposti">Sähköposti</th>
-				<th></th>
+				<th colspan="2" class="sposti">Sähköposti</th>
 			</tr>
 		</thead>
 		<tbody id="tbody" class="vastaus">
