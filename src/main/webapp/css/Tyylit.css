@@ -1,3 +1,45 @@
+body.index {
+	background-color: green;
+}
+
+div.kirjaudu {
+	background-color: white;
+    margin: auto;
+    text-align: center;
+    padding: 30px;
+    position: relative;
+    top: 30px;
+    width: fit-content;
+    border: 5px solid lightgrey;
+    border-radius: 10px;
+    font-weight: bold;
+    font-family: "Verdana", Geneva, Tahoma, sans-serif;
+}
+
+input#tunnus {
+	border: none;
+    border-bottom: 2px dashed black;
+    float: right;
+}
+
+input#salasana {
+	border: none;
+    border-bottom: 2px dashed black;
+    float: right;
+}
+
+.vasen {
+	float: left;
+}
+div.oikea {
+	margin-bottom: 10px;
+}
+
+.nappi {
+	float: right;
+	margin-top: 10px;
+}
+
 th.hakusana {
 	text-align: right;
 	color: white !important;

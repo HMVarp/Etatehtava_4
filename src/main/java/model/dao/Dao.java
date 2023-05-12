@@ -1,5 +1,6 @@
 package model.dao;
 
+//import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -19,7 +20,10 @@ public class Dao {
 	private Connection yhdista() {
 		Connection con = null;
 		String path = System.getProperty("catalina.base");
-		path = path.substring(0, path.indexOf(".metadata")).replace("\\", "/"); 
+		//path = path.substring(0, path.indexOf(".metadata")).replace("\\", "/"); 
+		//path = new File(System.getProperty("user.dir")).getParentFile().toString() +"\\";
+		path += "/webapps/"; //Tuotannossa. Laita tietokanta webapps-kansioon
+		//System.out.println(path); //T�st� n�et mihin kansioon laitat tietokanta-tiedostosi							
 		String url = "jdbc:sqlite:" + path + db;
 		try {
 			Class.forName("org.sqlite.JDBC");
@@ -31,6 +35,7 @@ public class Dao {
 		}
 		return con;
 	}
+	
 	private void sulje() {		
 		if (stmtPrep != null) {
 			try {
@@ -197,4 +202,47 @@ public class Dao {
 		}				
 		return paluuArvo;
 	}
+	
+	public boolean removeAllItems (String pwd) {
+		boolean paluuArvo = true;
+		if (!pwd.equals("Salasana")) {
+			return false;
+		}
+		sql = "DELETE FROM Asiakkaat";
+		try {
+			con=yhdista();
+			stmtPrep = con.prepareStatement(sql); 
+			stmtPrep.executeUpdate();	
+		} catch (Exception e) {				
+			e.printStackTrace();
+			paluuArvo=false;
+		} finally {
+			sulje();
+		}				
+		return paluuArvo;
+	}
+	
+	public String findUser(String tunnus, String salasana) {
+		String nimi = null;
+		sql="SELECT * FROM asiakkaat WHERE sposti=? AND salasana=?";						  
+		try {
+			con = yhdista();
+			if(con!=null){ 
+				stmtPrep = con.prepareStatement(sql); 
+				stmtPrep.setString(1, tunnus);
+				stmtPrep.setString(2, salasana);
+        		rs = stmtPrep.executeQuery();  
+        		if(rs.isBeforeFirst()){ //jos kysely tuotti dataa, eli asiakas l�ytyi
+        			rs.next();
+        			nimi = rs.getString("etunimi")+ " " +rs.getString("sukunimi");     			      			
+				}        		
+			}			        
+		} catch (Exception e) {				
+			e.printStackTrace();			
+		} finally {
+			sulje();
+		}				
+		return nimi;
+	}
 }
+
